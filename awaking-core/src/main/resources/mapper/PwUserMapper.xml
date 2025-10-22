@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lux.awaking.integration.db.mapper.PwUserMapper">
+    <select id="getAllUsers" resultType="com.lux.awaking.integration.db.AwakingUserVo">
+        select id,
+               username as userName,
+               display_name as displayName,
+               user_uuid as uuid,
+               email,
+               phone,
+               gender,
+               password_hash as password,
+               avatar_url as avatar,
+               status,
+               last_login_time as lastLogin,
+               login_count as loginCount,
+               created_at as createTime,
+               updated_at as updateTime,
+               deleted_at as deleteTime,
+               version,
+               remark
+        from pw_user;
+    </select>
+
+    <select id="selectByName" resultType="com.lux.awaking.integration.db.AwakingUserVo">
+        select id, username, display_name as displayName
+        from pw_user
+        where username = ${username};
+    </select>
+
+
+    <insert id="createUser">
+        insert into pw_user (username, display_name, user_uuid, email, phone, gender, password_hash, avatar_url, status,
+                             last_login_time, login_count, created_at, updated_at, deleted_at, version, remark)
+        values (${userVo.userName}, ${userVo.displayName}, ${userVo.uuid}, ${userVo.email}, ${userVo.phone}, ${userVo.gender}, ${userVo.password}, ${userVo.avatar}, ${userVo.status},
+                ${userVo.lastLogin}, ${userVo.loginCount}, ${userVo.createTime}, ${userVo.updateTime}, ${userVo.deleteTime}, ${userVo.version}, ${userVo.remark});
+    </insert>
+</mapper>
